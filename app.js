@@ -13,7 +13,22 @@ app.get('/posts/:id', (req, res) => {
   const id = req.params.id;
   const post = postBank.find(id);
   if (!post.id) {
-    throw new Error('Not Found')
+    res.status(404)
+    const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Wizard News</title>
+      <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+      <header><img src="/logo.png"/>Wizard News</header>
+      <div class="not-found">
+        <p>Accio Page! 🧙‍♀️ ... Page Not Found</p>
+      </div>
+    </body>
+    </html>`
+    res.send(html)
   }else{
   res.send(`<!DOCTYPE html>
   <html>
